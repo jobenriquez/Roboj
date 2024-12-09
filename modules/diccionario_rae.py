@@ -41,7 +41,7 @@ def get_rae_results(input) -> discord.Embed:
         logging.error(f"Error while processing message: {e}")
 
         embedded_error = discord.Embed(title="Error inesperado",
-                                       description=f'Ha sido un error al procesar la palabra `{input}`. Inténtelo de nuevo más tarde o contacte con @jobcuenca.',
+                                       description=f'Ha habido un error al procesar la palabra `{input}`. Inténtelo de nuevo más tarde o contacte con @jobcuenca.',
                                        color=0xFF5733)
 
         return embedded_error
