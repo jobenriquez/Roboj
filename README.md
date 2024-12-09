@@ -17,6 +17,6 @@ Este bot de Discord está completamente escrito en Python y en una fase muy temp
 ### Funciones: 
 - Navegar por el Diccionario de la Real Academia Española.
 
-### Commands
+### Comandos
 - **`j! rae <word>`** Buscar definiciones de palabras del Diccionario de la Real Academia Española.
 - **`j! help`** Mostrar una lista de comandos e información acerca de Roboj.
