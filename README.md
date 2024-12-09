@@ -1,7 +1,7 @@
 # Roboj
 ## English
 Roboj is a Discord bot developed by `@jobcuenca`. For inquiries, suggestions, and problem reports, you can contact him through the provided Discord account.
-It is entirely written in Python. This Discord Bot is in its very early phase and has very limited functionalities.
+This Discord bot is entirely written in Python and in its very early phase. Therefore, it has very limited functionalities.
 
 ### Functionalities: 
 - Browse the Real Academia Española dictionary.
@@ -12,7 +12,7 @@ It is entirely written in Python. This Discord Bot is in its very early phase an
 
 ## Español
 Roboj es un bot de discord desarrollado por `@jobcuenca`. Para consultas, sugerencias e informes de problemas, pueda contactar con él a través de su cuenta de Discord.
-Está completamente escrito en Python. Está en una fase muy temprana y tiene funcionalidades limitadas.
+Este bot de Discord está completamente escrito en Python y en una fase muy temprana. Por lo tanto tiene funcionalidades limitadas.
 
 #### Funcionalidades: 
 - Navegar por el Diccionario de la Real Academia Española.
