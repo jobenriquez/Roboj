@@ -3,7 +3,7 @@ import discord
 
 def show_help() -> discord.Embed:
     help_english = ('### Available commands:\n'
-                      '* `rae` - Look up definitions of a word from the Real Academia Española.\n'
+                      '* `rae` - Look up definitions of a word from the Real Academia Española dictionary.\n'
                       '  * Example usage: `j! rae libro`.\n\n'
                       'Roboj is a Discord bot developed by `@jobcuenca`. For inquiries, suggestions, '
                       'and problem reports, you can contact him through the provided Discord account.')
