@@ -8,7 +8,7 @@ import lxml
 logging.basicConfig(level=logging.ERROR, format="%(asctime)s - %(levelname)s - %(message)s")
 
 def get_rae_results(input) -> discord.Embed:
-    word = urllib.parse.quote(input)
+    word = urllib.parse.quote(input) # Convert text to a URL-supported format
     try:
         url = f"https://dle.rae.es/{word}/"
 
