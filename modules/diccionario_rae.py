@@ -23,17 +23,51 @@ def get_rae_results(input) -> discord.Embed:
 
             return embedded_error
 
-        title = article.find("header", class_="f").text
-        definitions = ""
-        copyright = "© Real Academia Española, 2024."
+        title = article.find("h1", class_="c-page-header__title").text.strip()
+        definitions = []
+        copyright_text = "© Real Academia Española, 2024."
 
-        for definition in article.find_all("p", {"class": ["j", "j1", "j2", "j3", "j4", "j5", "j6", "l2"]}):
-            if len(definitions + definition.text) < 2048:
-                definitions += definition.text + "\n"
+        # Find the ordered list containing definitions
+        definitions_list = article.find("ol", class_="c-definitions")
+
+        # Remove the entire footer section (with synonyms, etc.)
+        footer = article.find_all("div", class_="c-definitions__item-footer")
+        for footer_item in footer:
+            footer_item.decompose()
+
+        # Remove the examples (to be fixed)
+        examples = article.find_all("span", class_="h")
+        for example in examples:
+            example.decompose()
+
+        # Iterate through each list item
+        for i, definition_item in enumerate(definitions_list.find_all("li", class_=["j", "j1", "j2", "j3", "j4", "j5", "j6", "l2"]), start=1):
+            abbr = definition_item.find_all("abbr", class_=["g", "d", "c"])
+            # Exclude specific titles
+            filtered_abbr = [
+                ab for ab in abbr
+                if not any(ab.get("title", "").startswith(exclude) for exclude in
+                           ["usado también como", "Usado también como", "usado más como", "Usado más como", "Por extensión", "por extensión", "Aplicado a", "aplicado a"])
+            ]
+            abbr_text = " ".join([ab.text.strip() for ab in filtered_abbr]) if filtered_abbr else ""
+
+            # Remove the number before the definition
+            numbers = definition_item.find_all("span", class_="n_acep")
+            for number in numbers:
+                number.decompose()
+
+            # Extract the main definition text
+            definition_text = str(i) + ". " + abbr_text + " " + " ".join(
+                span.text.strip() for span in definition_item.find_all(["span", "a"])
+            )
+
+            definitions.append(definition_text + ".")
+
+        final_result = "\n".join(definitions)
 
         embedded_result = discord.Embed(title=title, url=url,
-                              description=f'{definitions}\n{copyright}',
-                              color=discord.Color.blue())
+                                        description=f'{final_result}\n\n{copyright_text}',
+                                        color=discord.Color.blue())
 
         return embedded_result
 
