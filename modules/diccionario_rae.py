@@ -3,7 +3,6 @@ import urllib.parse
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import discord
-import datetime
 import lxml
 
 logging.basicConfig(level=logging.ERROR, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -12,27 +11,21 @@ def get_rae_results(input) -> discord.Embed:
     word = urllib.parse.quote(input) # Convert text to a URL-supported format
     try:
         url = f"https://dle.rae.es/{word}/"
+
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         webpage = urlopen(req).read()
         soup = BeautifulSoup(webpage, "lxml")
-
-        # Check if the word exists by looking for the main article
-        if soup:
-            main_article = soup.find("article",
-                                           class_="o-main__article")
-            if not main_article:
-                embedded_error = discord.Embed(
-                    title="Palabra no encontrada",
-                    description=f'La palabra `{input}` no existe en el diccionario. Por favor verifique que la palabra esté escrita correctamente.',
-                    color=0xFF5733
-                )
-                return embedded_error
-
         article = soup.find("article")
+        if not article:
+            embedded_error = discord.Embed(title="Palabra no encontrada",
+                                           description=f'La palabra `{input}` no existe en el diccionario. Por favor verifique que la palabra esté escrita correctamente.',
+                                           color=0xFF5733)
+
+            return embedded_error
+
         title = article.find("h1", class_="c-page-header__title").text.strip()
         definitions = []
-        current_year = datetime.datetime.now().year
-        copyright_text = f"© Real Academia Española, {current_year}."
+        copyright_text = "© Real Academia Española, 2024."
 
         # Find the ordered list containing definitions
         definitions_list = article.find("ol", class_="c-definitions")
